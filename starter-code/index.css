@@ -565,7 +565,6 @@ body {
     background-position: center center;
     background-image: url(./assets/technology/background-technology-tablet.jpg);
   }
-
 }
 
 @media (min-width: 45rem) {
@@ -770,22 +769,140 @@ body {
     max-width: 90%;
   }
 
-    .grid-container--technology {
-    grid-template-columns: minmax(1rem, 1fr) minmax(0, 5rem) minmax(0, 40rem) minmax(0, 30rem) minmax(1rem, 1fr);
+  .grid-container--technology {
+    grid-template-columns:
+      minmax(1rem, 1fr) minmax(0, 5rem) minmax(0, 40rem) minmax(0, 30rem)
+      minmax(1rem, 1fr);
     justify-items: start;
     grid-template-areas:
       ". title title title ."
       ". tabs content image ."
       ". tabs content image .";
   }
-  
+
   .grid-container--technology > .number-indicators {
     flex-direction: column;
   }
-  
+
   .grid-container--technology > picture {
     justify-self: end;
   }
+}
+
+/* ----------------------- */
+/* Tab Transition Styles   */
+/* ----------------------- */
+
+/* Fade out class for content switching */
+.content-fade-out {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Image transitions */
+.grid-container--destination > picture,
+.grid-container--crew > picture,
+.grid-container--technology > picture {
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* Image fade out class */
+.image-fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Enhanced indicator transitions */
+.underline-indicators > * {
+  cursor: pointer;
+  padding: var(--underline-gap, 0.5rem) 0;
+  border: 0;
+  border-bottom: 0.2rem solid hsl(var(--clr-white) / 0);
+  background-color: transparent;
+  transition: border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.dot-indicators > * {
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  padding: 0.5em;
+  background-color: hsl(var(--clr-white) / 0.25);
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.dot-indicators > *:hover,
+.dot-indicators > *:focus {
+  background-color: hsl(var(--clr-white) / 0.5);
+  transform: scale(1.1);
+}
+
+.dot-indicators > [aria-selected="true"] {
+  background-color: hsl(var(--clr-white) / 1);
+  transform: scale(1.15);
+}
+
+.number-indicators > * {
+  cursor: pointer;
+  border: 1px solid hsl(var(--clr-white) / 0.25);
+  border-radius: 50%;
+  padding: 0 1em;
+  background-color: transparent;
+  color: hsl(var(--clr-white));
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.number-indicators > *:hover,
+.number-indicators > *:focus {
+  border-color: hsl(var(--clr-white) / 1);
+  transform: scale(1.05);
+}
+
+.number-indicators > [aria-selected="true"] {
+  background-color: hsl(var(--clr-white) / 1);
+  color: hsl(var(--clr-dark));
+  transform: scale(1.1);
+}
+
+/* Stagger animation for content elements */
+.destination-info > *,
+.crew-details > *,
+.technology-info > * {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transition-delay: 0.1s;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.content-entering {
+  animation: contentFadeIn 0.4s ease-out forwards;
+}
+
+.image-entering {
+  animation: imageFadeIn 0.4s ease-out forwards;
 }
 
 @keyframes fadeInPage {
