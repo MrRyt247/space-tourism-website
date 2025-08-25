@@ -5,50 +5,25 @@ const destinationLinks = destination.querySelector(".tab-list");
 const [ MoonLink, MarsLink, EuropaLink, TitanLink ] = destinationLinks.querySelectorAll("button");
 const destinationArticle = destination.querySelector("article");
 
-MoonLink.addEventListener("click", () => {
+function updateDestination(index) {
+  // Update aria-selected states
   [ MoonLink, MarsLink, EuropaLink, TitanLink ].forEach(link => link.setAttribute("aria-selected", false));
-  MoonLink.setAttribute("aria-selected", true); 
-  destination.querySelector("picture source").srcset = data.destinations[0].images.webp;
-  destination.querySelector("picture img").src = data.destinations[0].images.png;
-  destination.querySelector("picture img").alt = data.destinations[0].name;
-  destinationArticle.querySelector("h2").textContent = data.destinations[0].name;
-  destinationArticle.querySelector("p").textContent = data.destinations[0].description;  
-  destinationArticle.querySelector(".destination-meta > div:first-of-type > p").textContent = data.destinations[0].distance;
-  destinationArticle.querySelector(".destination-meta > div:last-of-type > p").textContent = data.destinations[0].travel;
-});
+  [ MoonLink, MarsLink, EuropaLink, TitanLink ][index].setAttribute("aria-selected", true); 
 
-MarsLink.addEventListener("click", () => {
-  [ MoonLink, MarsLink, EuropaLink, TitanLink ].forEach(link => link.setAttribute("aria-selected", false));
-  MarsLink.setAttribute("aria-selected", true); 
-  destination.querySelector("picture source").srcset = data.destinations[1].images.webp;
-  destination.querySelector("picture img").src = data.destinations[1].images.png;
-  destination.querySelector("picture img").alt = data.destinations[1].name;
-  destinationArticle.querySelector("h2").textContent = data.destinations[1].name;
-  destinationArticle.querySelector("p").textContent = data.destinations[1].description;  
-  destinationArticle.querySelector(".destination-meta > div:first-of-type > p").textContent = data.destinations[1].distance;
-  destinationArticle.querySelector(".destination-meta > div:last-of-type > p").textContent = data.destinations[1].travel;
-});
+  // Update image sources
+  const picture = destination.querySelector("picture");
+  picture.querySelector("source").srcset = data.destinations[index].images.webp;
+  picture.querySelector("img").src = data.destinations[index].images.png;
+  picture.querySelector("img").alt = data.destinations[index].name;
 
-EuropaLink.addEventListener("click", () => {
-  [ MoonLink, MarsLink, EuropaLink, TitanLink ].forEach(link => link.setAttribute("aria-selected", false));
-  EuropaLink.setAttribute("aria-selected", true);
-  destination.querySelector("picture source").srcset = data.destinations[2].images.webp;
-  destination.querySelector("picture img").src = data.destinations[2].images.png; 
-  destination.querySelector("picture img").alt = data.destinations[2].name;
-  destinationArticle.querySelector("h2").textContent = data.destinations[2].name;
-  destinationArticle.querySelector("p").textContent = data.destinations[2].description;
-  destinationArticle.querySelector(".destination-meta > div:first-of-type > p").textContent = data.destinations[2].distance;
-  destinationArticle.querySelector(".destination-meta > div:last-of-type > p").textContent = data.destinations[2].travel;
-});
+  // Update content
+  destinationArticle.querySelector("h2").textContent = data.destinations[index].name;
+  destinationArticle.querySelector("p").textContent = data.destinations[index].description;  
+  destinationArticle.querySelector(".destination-meta > div:first-of-type > p").textContent = data.destinations[index].distance;
+  destinationArticle.querySelector(".destination-meta > div:last-of-type > p").textContent = data.destinations[index].travel;
+}
 
-TitanLink.addEventListener("click", () => {
-  [ MoonLink, MarsLink, EuropaLink, TitanLink ].forEach(link => link.setAttribute("aria-selected", false));
-  TitanLink.setAttribute("aria-selected", true);  
-  destination.querySelector("picture source").srcset = data.destinations[3].images.webp;
-  destination.querySelector("picture img").src = data.destinations[3].images.png; 
-  destination.querySelector("picture img").alt = data.destinations[3].name;
-  destinationArticle.querySelector("h2").textContent = data.destinations[3].name;
-  destinationArticle.querySelector("p").textContent = data.destinations[3].description; 
-  destinationArticle.querySelector(".destination-meta > div:first-of-type > p").textContent = data.destinations[3].distance;
-  destinationArticle.querySelector(".destination-meta > div:last-of-type > p").textContent = data.destinations[3].travel;
-});
+MoonLink.addEventListener("click", () => updateDestination(0));
+MarsLink.addEventListener("click", () => updateDestination(1));
+EuropaLink.addEventListener("click", () => updateDestination(2));
+TitanLink.addEventListener("click", () => updateDestination(3));
